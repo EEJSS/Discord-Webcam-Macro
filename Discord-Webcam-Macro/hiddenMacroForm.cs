@@ -60,7 +60,7 @@ namespace Discord_Webcam_Macro
                     {
                         continue;
                     }
-                    Cursor.Position = new System.Drawing.Point(rct.Left + ((rct.Right - rct.Left) / 2) - 30, (rct.Top + (rct.Bottom - rct.Top)) - 40);
+                    Cursor.Position = new System.Drawing.Point(rct.Left + 120, (rct.Top + (rct.Bottom - rct.Top)) - 80);
                     mouse_event(0x02 | 0x04, (uint)Cursor.Position.X, (uint)Cursor.Position.Y, 0, 0);
                 }
             }
