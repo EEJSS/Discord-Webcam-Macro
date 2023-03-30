@@ -40,7 +40,6 @@ namespace Discord_Webcam_Macro
         {
             if (m.Msg == 0x0312)
             {
-                RECT rct;
                 IntPtr curWindow = GetForegroundWindow();
                 Process[] p = Process.GetProcessesByName("Discord");
                 for (int i = 0; i < p.Length; i++)
@@ -48,7 +47,7 @@ namespace Discord_Webcam_Macro
                     IntPtr handle = p[i].MainWindowHandle;
                     if (IsIconic(handle)) ShowWindow(handle, 9);
                     SetForegroundWindow(handle);
-                    if (!GetWindowRect(new HandleRef(p[i], p[i].MainWindowHandle), out rct)) continue;
+                    if (!GetWindowRect(new HandleRef(p[i], p[i].MainWindowHandle), out RECT rct)) continue;
                     Point point = Cursor.Position;
                     Cursor.Position = new System.Drawing.Point(rct.Left + 120, (rct.Top + (rct.Bottom - rct.Top)) - 80);
                     mouse_event(0x02 | 0x04, (uint)Cursor.Position.X, (uint)Cursor.Position.Y, 0, 0);
