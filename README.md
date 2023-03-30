@@ -8,7 +8,7 @@ When you click your macro the program will find the Discord process then calcula
 based off of the position & dimensions of the Discord window.
 
 # How To Change Macro
-On first launch you will be brought to the settings window which will save on next startup.
+On first launch you will be brought to the settings window.
 
 # Add To Startup
 If you'd like to add this application to startup,
