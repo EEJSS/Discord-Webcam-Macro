@@ -9,7 +9,7 @@ based off of the position & dimensions of the Discord window.
 
 On first launch you will be brought to the settings window which will save on next startup.
 
-#Add To Startup
+# Add To Startup
 If you'd like to add this application to startup,
 you can compile it then create a shortcut and move that to 
 C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp
