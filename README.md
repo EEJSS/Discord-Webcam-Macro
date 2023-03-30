@@ -7,6 +7,7 @@ the simple click of a button but for some reason they don't give that feature wi
 When you click your macro the program will find the Discord process then calculate the position of the webcam button
 based off of the position & dimensions of the Discord window.
 
+# How To Change Macro
 On first launch you will be brought to the settings window which will save on next startup.
 
 # Add To Startup
