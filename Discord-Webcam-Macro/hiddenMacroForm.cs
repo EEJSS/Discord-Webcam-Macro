@@ -38,7 +38,6 @@ namespace Discord_Webcam_Macro
         public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
         public static class Constants
         {
-            //windows message id for hotkey
             public const int WM_HOTKEY_MSG_ID = 0x0312;
         }
         [DllImport("user32.dll")]
