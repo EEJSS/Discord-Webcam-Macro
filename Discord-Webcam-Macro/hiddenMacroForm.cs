@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
@@ -17,11 +13,13 @@ namespace Discord_Webcam_Macro
             InitializeComponent();
         }
 
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        [DllImport("user32.dll")]
         private static extern bool SetForegroundWindow(IntPtr handle);
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+        [DllImport("user32.dll")]
         private static extern bool ShowWindow(IntPtr handle, int nCmdShow);
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        [DllImport("user32.dll")]
         private static extern bool IsIconic(IntPtr handle);
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -36,33 +34,27 @@ namespace Discord_Webcam_Macro
         }
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
         public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
-        public static class Constants
-        {
-            public const int WM_HOTKEY_MSG_ID = 0x0312;
-        }
         [DllImport("user32.dll")]
         private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == Constants.WM_HOTKEY_MSG_ID)
+            if (m.Msg == 0x0312)
             {
                 RECT rct;
+                IntPtr curWindow = GetForegroundWindow();
                 Process[] p = Process.GetProcessesByName("Discord");
                 for (int i = 0; i < p.Length; i++)
                 {
                     IntPtr handle = p[i].MainWindowHandle;
-                    if (IsIconic(handle))
-                    {
-                        ShowWindow(handle, 9);
-                    }
+                    if (IsIconic(handle)) ShowWindow(handle, 9);
                     SetForegroundWindow(handle);
-                    if (!GetWindowRect(new HandleRef(p[i], p[i].MainWindowHandle), out rct))
-                    {
-                        continue;
-                    }
+                    if (!GetWindowRect(new HandleRef(p[i], p[i].MainWindowHandle), out rct)) continue;
+                    Point point = Cursor.Position;
                     Cursor.Position = new System.Drawing.Point(rct.Left + 120, (rct.Top + (rct.Bottom - rct.Top)) - 80);
                     mouse_event(0x02 | 0x04, (uint)Cursor.Position.X, (uint)Cursor.Position.Y, 0, 0);
+                    Cursor.Position = point;
                 }
+                SetForegroundWindow(curWindow);
             }
             base.WndProc(ref m);
         }
